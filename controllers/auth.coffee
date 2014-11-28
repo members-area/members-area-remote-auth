@@ -25,6 +25,7 @@ module.exports = class AuthController extends Controller
         @res.json 200, {id: user.id, username: user.username, email: user.email}
         done()
       return fail() if err
+      return fail() unless user
       user.hasActiveRole 1, (approved) =>
         return fail() unless approved
         user.checkPassword @req.body.password, (err, correct) =>
